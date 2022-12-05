@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>transliterate.js – Obfuscate JS Using Other Writing Systems</title>
+    <meta name="description" content="Translate JavaScript code to foreign writing systems. Created by Martin Kleppe aka @aemkei.">
+    <meta name="viewport" content="width=device-width" />
+    <meta name="theme-color" content="#222222" />
+    <meta property="og:title" content="transliterate.js" />
+    <meta property="og:description" content="Translate any JavaScript code to foreign writing systems. Created by Martin Kleppe aka @aemkei." />
+    <meta property="og:image" content="http://aem1k.com/transliterate.js/preview.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@aemkei" />
+    <meta property="twitter:image" content="http://aem1k.com/transliterate.js/preview.png" />
+    <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+    <link href='styles.css' rel='stylesheet' type='text/css' />
+  </head>
+  <body>
+    <div id="container">
+
+      <h2>transliterate.js</h2>
+      <p>Translate any JavaScript code to foreign writing systems.</p>
+      <p>This tool will convert your input into an obfuscated script that uses symbols of foreign alphabets such as Kanji (零壱弐), Karian (𐊣𐊦𐊧) or even Hieroglyphs (𓅂𓂀𓁄).</p>
+
+      <div id="output">
+        <article id="input">
+          <h3>Your Code:</h3>
+          <textarea id="your-code" placeholder="Enter your JavaScript source code">alert('A labyrinth of symbols.');</textarea>
+          <h3>Symbols:</h3>
+          <input id="your-input" class="alphabet" placeholder="Enter 26 unique symbols" value="零壱弐参四五六七記号符号標識暗号合言葉難読化秘密不可解"/>
+          <p id="presets">
+            Presets: 
+          </p>
+          <h3>Output</h3>
+          <p>// obfuscated output</p>
+          <div id="your-output">↑ Edit the alphabet and the code above.</div>
+          <p><a id="run" href="#run">Run this code</a></p>
+        </article>
+
+        <hr>
+        
+        <p>
+          Type in a list of 9 up to 26 unique symbols in the input above.
+          They are used to convert the provided source to cryptic but valid JavaScript that you can execute without any extra code.
+        </p>
+        <p>
+          * Created by Martin Kleppe aka <a href="https://twitter.com/aemkei">@aemkei</a>.
+          <br>
+          * More hacks and creative coding at <a href="http://aem1k.com/">aem1k.com</a>.
+        </p>
+        <p>
+          Hint: You can also share the URL which updates while typing.
+        </p>
+        <hr>
+        <h3>Background</h3>
+        <p>The provided code is converted to an octal code sequence, where numbers 0..8 are assigned to variables. The variable names are then replaced with one of the provided symbols.</p>
+        <p>To execute the scripts, we grab individual characters from basic JavaScript values and objects. They are combined to access the Function constructor which can evaluate the encoded script.</p>
+        <h3>Script:</h3>
+        <pre>
+// variables for digits 0..9
+<b>_0 = +![];        </b>// 0
+<b>_1 = +!_0;        </b>// 1
+<b>_2 = _1 + _1;     </b>// 2
+<b>_3 = _2 + _1;     </b>// 3
+<b>_4 = _2 * _2;     </b>// 4
+<b>_5 = _3 + _2;     </b>// 5
+<b>_6 = _2 * _3;     </b>// 6
+<b>_7 = _4 + _3;     </b>// 7
+
+// variables for strings from basic types 
+<b>[</b>
+<b>  BACKSLASH,      </b>// '\\'
+<b>  QUOTE,          </b>// '""
+<b>  T,R,U,,         </b>// 'true'
+<b>  ,,,S,,          </b>// 'false'
+<b>  ,N,,,,I,,,,     </b>// 'undefined'
+<b>  ,O,,J,E,C       </b>// '[object Object]'
+<b>] = </b>
+<b>  (X='\\"') +     </b>// "\
+<b>  !!X +           </b>// true
+<b>  !X +            </b>// false
+<b>  X.X +           </b>// undefined
+<b>  {}              </b>// {}
+
+// Function constructor
+<b>CONSTRUCTOR = C + O + N + S + T + R + U + C + T + O + R,
+CONSTRUCTOR = CONSTRUCTOR[CONSTRUCTOR][CONSTRUCTOR],
+</b>
+// shortcut to "join" and "return "
+<b>JOIN = J + O + I + N,
+RETURN = R + E + T + U + R + N + ' ';</b>
+
+// evaluate encoded script
+CONSTRUCTOR(
+  CONSTRUCTOR(
+    RETURN + QUOTE + CONSTRUCTOR(
+      RETURN + [...<b>"ENOCODED_SCRIPT"</b>][JOIN]("+")
+    )()+ QUOTE
+  )()
+)()
+        </pre>
+      </div>
+      <hr>
+
+<pre id="logo">
+      <b>#</b>
+      <b>#</b>
+     <b>##</b>
+      <b>#</b> #
+   ## <b>#</b> #
+ ## # <b>#</b> # #
+# # # <b>#</b> ##
+# # # <b>#</b> # #
+# # # <b>#</b> #  #
+</pre>
+      20XX - Martin Kleppe
+
+    </div>
+    <script src="bootstrap.js"></script>
+    <script src="minify.js"></script>
+    <script src="index.js"></script>
+
+  </body>
+</html>
